@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### This is Shortly a URL shortener
+
+Shortly was built wih nextjs, typescript and tailwind css
 
 ## Getting Started
 
