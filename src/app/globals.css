@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+button{
+    @apply border-none bg-cyan text-white font-medium text-base
+}
