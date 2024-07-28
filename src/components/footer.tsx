@@ -5,7 +5,7 @@ import Image from "next/image";
 export function FirstFooter() {
   return (
     <>
-      <div className="bg-[url(../../public/background.webp)] flex flex-col justify-center items-center py-16 gap-7">
+      <div className="bg-[url(../../public/background.webp)] bg-no-repeat flex flex-col justify-center items-center py-16 gap-7">
         <h2 className="font-bold text-4xl text-white">
           Boost your links today
         </h2>

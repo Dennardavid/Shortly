@@ -5,3 +5,21 @@
 button{
     @apply border-none bg-cyan text-white font-medium text-base
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 75%);
+   
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: hsl(257, 27%, 26%);
+    border-radius: 5px;
+}
+
