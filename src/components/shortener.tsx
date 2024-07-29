@@ -23,37 +23,42 @@ function Stats() {
   ];
 
   const articleInfo = articles.map((data) => (
-    <article key={data.header} className="tag-cards">
-      <div className="article-image">
-        <Image src={data.image} alt={data.alt} width={50} height={50} />
+    <article
+      key={data.header}
+      className="bg-white rounded-xl px-5 py-8 w-[320px] h-[300px] relative"
+    >
+      <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center absolute -top-8">
+        <Image src={data.image} alt={data.alt} width={35} height={35} />
       </div>
-      <h3>{data.header}</h3>
-      <p>{data.text}</p>
+      <h3 className="mb-3 text-DarkViolet font-bold text-lg">{data.header}</h3>
+      <p className="text-sm text-GrayishViolet leading-6">{data.text}</p>
     </article>
   ));
   return (
-    <section>
+    <section className="flex flex-col items-center bg-Gray mt-8 pb-20" >
       <Shortener />
-      <div className="stats-write-up">
-        <h2>Advanced Statistics</h2>
-        <p>
+      <div className="text-center w-[450px]">
+        <h2 className="font-bold text-3xl text-VeryDarkBlue">
+          Advanced Statistics
+        </h2>
+        <p className="text-GrayishViolet leading-relaxed text-base mt-5">
           Track how your links are performing across the web with our advanced
-          statistics dashboard
+          statistics dashboard.
         </p>
       </div>
 
       <hr />
 
-      <div className="Cards-container">{articleInfo}</div>
+      <div className="flex mt-16 justify-evenly w-full">{articleInfo}</div>
     </section>
   );
 }
 
 function Shortener() {
   return (
-    <>
-      <div className="bg-[url(../../public/background2.webp)] bg-no-repeat">
-        <form className="input-form">
+    <section className="w-full flex items-center justify-center bg-slate-500">
+      <div className="bg-[url(../../public/background2.webp)] bg-no-repeat py-[72px] w-full self-center ">
+        <form className="flex flex-row justify-evenly">
           <input
             type="text"
             placeholder="shorten your link here..."
@@ -67,7 +72,7 @@ function Shortener() {
           <small id="wrong_url"></small>
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
