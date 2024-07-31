@@ -25,13 +25,17 @@ function Stats() {
   const articleInfo = articles.map((data) => (
     <article
       key={data.header}
-      className="bg-white rounded-xl px-5 py-8 w-[320px] h-[300px] relative"
+      className="bg-white rounded-xl px-5 py-8 w-[320px] h-[250px] relative"
     >
       <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center absolute -top-8">
         <Image src={data.image} alt={data.alt} width={35} height={35} />
       </div>
-      <h3 className="mb-3 text-DarkViolet font-bold text-lg">{data.header}</h3>
-      <p className="text-sm text-GrayishViolet leading-6">{data.text}</p>
+      <h3 className="mb-3 text-DarkViolet font-bold text-lg mt-9">
+        {data.header}
+      </h3>
+      <p className="text-sm text-GrayishViolet leading-6 max-w-[260px]">
+        {data.text}
+      </p>
     </article>
   ));
   return (
@@ -56,21 +60,32 @@ function Stats() {
 
 function Shortener() {
   return (
-    <div className="bg-[url(../../public/background2.webp)] bg-center bg-contain bg-no-repeat py-[72px] self-center lg:w-3/5 bg-green-300">
-      <form className="flex flex-row justify-evenly bg-slate-400 w-full">
-        <input
-          type="text"
-          placeholder="shorten your link here..."
-          className="w-3/4"
-        />
-        <button type="submit" className="submit">
-          Shorten It!
-        </button>
-      </form>
-      <div className="wrongUrlContainer">
-        <small id="wrong_url"></small>
+    <>
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-contain bg-no-repeat py-[72px] self-center lg:w-3/5 relative bottom-24">
+        <form className="flex justify-center gap-5 w-full">
+          <input
+            type="text"
+            placeholder="shorten your link here..."
+            className="w-3/4 p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
+          />
+          <button type="submit" className="px-8 rounded-lg">
+            Shorten It!
+          </button>
+        </form>
+        <div className="wrongUrlContainer">
+          <small id="wrong_url"></small>
+        </div>
       </div>
-    </div>
+      <div className="bg-green-500 w-full relative bottom-14">
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+      </div>
+    </>
   );
 }
 
