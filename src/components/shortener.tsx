@@ -57,7 +57,7 @@ function Stats() {
 function Shortener() {
   return (
     
-      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-[72px] self-center w-3/5 bg-green-300">
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-[72px] self-center lg:w-3/5 bg-green-300">
         <form className="flex flex-row justify-evenly bg-slate-400 w-full">
           <input
             type="text"
