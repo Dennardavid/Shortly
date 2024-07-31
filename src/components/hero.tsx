@@ -5,7 +5,7 @@ import Link from "next/link";
 function HeroSection() {
   return (
     <section className="flex justify-between pl-32 mt-7">
-      <div className="self-center">
+      <div className="self-center w-1/3">
         <h1 className="font-bold text-7xl text-VeryDarkBlue leading-tight -tracking-[2px]">
           More than just shorter links
         </h1>
