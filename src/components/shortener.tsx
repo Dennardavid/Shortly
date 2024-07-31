@@ -56,8 +56,8 @@ function Stats() {
 
 function Shortener() {
   return (
-    <section className="w-full flex items-center justify-center bg-slate-500">
-      <div className="bg-[url(../../public/background2.webp)] bg-no-repeat py-[72px] w-full self-center ">
+    
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-[72px] w-full self-center ">
         <form className="flex flex-row justify-evenly">
           <input
             type="text"
@@ -72,7 +72,7 @@ function Shortener() {
           <small id="wrong_url"></small>
         </div>
       </div>
-    </section>
+   
   );
 }
 
