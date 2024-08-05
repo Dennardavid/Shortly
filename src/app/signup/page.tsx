@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signup } from "../login/actions";
 
 function SignUp() {
   return (
@@ -20,18 +21,11 @@ function SignUp() {
               id="password"
               placeholder="Password"
             />
-            <label htmlFor="confirmpassword">Confirm Password:</label>
-
-            <input
-              type="password"
-              name="confirmpassword"
-              id="confirmpassword"
-              placeholder="Confirm Password"
-            />
             <span className="text-red-500">{}</span>
             <button
               type="submit"
               className="p-2 rounded-lg"
+              formAction={signup}
             >
               Sign up
             </button>

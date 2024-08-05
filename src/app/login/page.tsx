@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { login } from './actions'
 
 function Login() {
   return (
@@ -27,6 +28,7 @@ function Login() {
           <button
             type="submit"
             className="p-2 rounded-lg"
+            formAction={login}
           >
             Login
           </button>
