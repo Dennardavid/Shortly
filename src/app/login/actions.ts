@@ -19,7 +19,7 @@ export async function login(formData: FormData) {
 
   if (error) {
     console.log(error)
-    redirect('/error')
+    return { error: error.message }
   }
 
   revalidatePath('/', 'layout')
@@ -29,10 +29,8 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
-    user_name : formData.get('name')as string,
+    user_name: formData.get('name') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
   }
@@ -41,9 +39,9 @@ export async function signup(formData: FormData) {
 
   if (error) {
     console.log(error)
-    redirect('/error')
+    return { error: error.message }
   }
 
   revalidatePath('/', 'layout')
-  redirect('/login')
+  return { success: true }
 }
