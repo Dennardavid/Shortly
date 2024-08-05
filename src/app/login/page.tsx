@@ -26,7 +26,7 @@ function Login() {
           <span className="text-red-500">{}</span>
           <button
             type="submit"
-            className="bg-zinc-400/40 text-white p-2 rounded-lg"
+            className="p-2 rounded-lg"
           >
             Login
           </button>

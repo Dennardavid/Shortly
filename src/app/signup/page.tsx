@@ -2,9 +2,11 @@ import Link from "next/link";
 
 function SignUp() {
   return (
-    <>
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="w-[70%]">
+    <section className="flex">
+      <div className="w-[45%] bg-cyan">
+      </div>
+      <div className="flex items-center w-[55%] justify-center h-screen">
+        <div className="w-[60%]">
           <h1 className="text-left mb-2 font-bold text-lg">Sign up</h1>
           <form className=" flex flex-col gap-3">
             <label htmlFor="name">Full name:</label>
@@ -29,7 +31,7 @@ function SignUp() {
             <span className="text-red-500">{}</span>
             <button
               type="submit"
-              className="bg-zinc-400/40 text-white p-2 rounded-lg"
+              className="p-2 rounded-lg"
             >
               Sign up
             </button>
@@ -44,7 +46,7 @@ function SignUp() {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
