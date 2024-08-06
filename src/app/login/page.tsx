@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Aside from "@/components/aside";
 import { login } from "./actions";
 
 function Login() {
@@ -23,7 +24,7 @@ function Login() {
 
   return (
     <section className="flex">
-      <div className="w-[45%] bg-cyan"></div>
+      <Aside />
       <div className="flex flex-col items-center w-[55%] justify-center h-screen">
         <div className="w-[60%]">
           <h1 className="text-left mb-2 font-bold text-lg">Login</h1>
