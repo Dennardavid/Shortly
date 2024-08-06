@@ -58,7 +58,7 @@ function Stats() {
   );
 }
 
-function Shortener() {
+export function Shortener() {
   return (
     <>
       <div className="bg-[url(../../public/background2.webp)] bg-center bg-contain bg-no-repeat py-[72px] self-center lg:w-3/5 relative bottom-24">
@@ -76,15 +76,6 @@ function Shortener() {
           <small id="wrong_url"></small>
         </div>
       </div>
-     {/*  <div className="bg-green-500 w-full relative bottom-14">
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-      </div> */}
     </>
   );
 }

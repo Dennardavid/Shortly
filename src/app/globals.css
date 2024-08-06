@@ -2,27 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-button{
-    @apply border-none bg-cyan text-white font-medium text-base
+button {
+  @apply border-none bg-cyan text-white font-medium text-base;
 }
 input {
-    @apply ring-1 ring-cyan p-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan
+  @apply ring-1 ring-cyan p-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan;
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
- 
+
 /* Track */
 ::-webkit-scrollbar-track {
-    background: hsl(0, 0%, 75%);
-   
+  background: hsl(0, 0%, 75%);
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: hsl(257, 27%, 26%);
-    border-radius: 5px;
+  background: hsl(257, 27%, 26%);
+  border-radius: 5px;
 }
+
 
