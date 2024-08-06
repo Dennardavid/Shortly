@@ -51,7 +51,9 @@ export function SecondFooter() {
   return (
     <section className="bg-VeryDarkViolet flex text-white px-32 justify-between pt-9 pb-10">
       <div>
-        <Image src={shortlyLogo} alt="shortly logo" />
+        <Link href="/">
+          <Image src={shortlyLogo} alt="Shortly logo" />
+        </Link>
       </div>
       <div className="flex w-[70%] justify-between">
         <FooterSection

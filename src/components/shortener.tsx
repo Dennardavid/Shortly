@@ -76,7 +76,7 @@ function Shortener() {
           <small id="wrong_url"></small>
         </div>
       </div>
-      <div className="bg-green-500 w-full relative bottom-14">
+     {/*  <div className="bg-green-500 w-full relative bottom-14">
         <h2>hello</h2>
         <h2>hello</h2>
         <h2>hello</h2>
@@ -84,7 +84,7 @@ function Shortener() {
         <h2>hello</h2>
         <h2>hello</h2>
         <h2>hello</h2>
-      </div>
+      </div> */}
     </>
   );
 }
