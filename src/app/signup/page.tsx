@@ -41,13 +41,13 @@ function SignUp() {
           </h1>
           <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <label htmlFor="name" className="text-VeryDarkBlue">
-              Full name:
+              User name:
             </label>
             <input
               type="text"
               name="name"
               id="name"
-              placeholder="Full name"
+              placeholder="User name"
               required
             />
             <label htmlFor="email" className="text-VeryDarkBlue">
