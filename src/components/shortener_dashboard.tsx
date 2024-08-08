@@ -8,7 +8,7 @@ export function DashboardShortener() {
       <h2 className="text-center text-VeryDarkBlue font-semibold text-lg">
         Shorten a new link
       </h2>
-      
+      <button>Logout</button>
       <form className="flex justify-between mt-3 mb-7">
         <input
           type="text"
