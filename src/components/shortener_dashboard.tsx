@@ -38,7 +38,7 @@ function ShortenedComp() {
   return (
     <div className="mb-3 flex justify-between">
       {urls.map((url) => (
-        <div key={url.id}>
+        <div key={url.id} className="mb-3 flex justify-between w-full items-center">
           <Image src={url.qr_code || ''} alt='qr code' width={50} height={50} />
           <p>{url.original_url}</p>
           <p>{url.short_url}</p>
