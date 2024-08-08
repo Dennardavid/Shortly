@@ -63,7 +63,7 @@ function Login() {
 
             {error && <span className="text-red-500">{error}</span>}
             <label htmlFor="login" className="sr-only"></label>
-            <input type="submit" value="Login" name="login" className="p-2 rounded-lg mt-2 border-none bg-cyan text-white font-medium text-base" formAction={login} />
+            <input type="submit" value="Login" className="p-2 rounded-lg mt-2 border-none bg-cyan text-white font-medium text-base" formAction={login} />
           </form>
           <div className="text-center mt-3">
             <p className="text-VeryDarkBlue">

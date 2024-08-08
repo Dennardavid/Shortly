@@ -1,6 +1,8 @@
 import { FaRegCopy } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
 
 export function DashboardShortener() {
   return (
