@@ -1,3 +1,5 @@
+"use client"
+
 import { FaRegCopy } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
 import Image from "next/image";
@@ -24,16 +26,29 @@ export function DashboardShortener() {
 }
 
 function ShortenedComp() {
+  const [urls, setUrls] = useState([]);
+  useEffect(() => {
+    fetch("/auth/getURLs")
+      .then((res) => res.json())
+      .then((data) => {
+        setUrls(data);
+      });
+  }, []);
+
   return (
     <div className="mb-3 flex justify-between">
-        <Image src='' alt='qr code'/>
-      <p>long url</p>
-      <p>short url</p>
-      <div className="flex items-center gap-4">
-        <FaRegCopy size={19} />
-        <MdDeleteOutline size={20} />
-        <button className="rounded-full px-4 py-1">details</button>
-      </div>
+      {urls.map((url) => (
+        <div key={url.id}>
+          <Image src={url.qr_code || ''} alt='qr code' width={50} height={50} />
+          <p>{url.original_url}</p>
+          <p>{url.short_url}</p>
+          <div className="flex items-center gap-4">
+            <FaRegCopy size={19} />
+            <MdDeleteOutline size={20} />
+            <button className="rounded-full px-4 py-1">details</button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

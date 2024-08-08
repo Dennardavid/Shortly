@@ -5,8 +5,6 @@ import { type NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const supabase = createClient();
 
-  console.log(supabase)
-
   // Check if a user's logged in
   const {
     data: { user },
