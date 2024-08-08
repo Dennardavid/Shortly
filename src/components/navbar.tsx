@@ -5,7 +5,7 @@ import shortlyLogo from "../../public/Shortly.webp";
 
 function NavBar() {
   return (
-    <header className="">
+    <header>
       <nav className="flex justify-between px-32 py-12">
         <div className="flex items-center justify-center gap-x-14">
           <Link href="/">
@@ -31,7 +31,7 @@ function NavBar() {
             Login
           </Link>
 
-          <Link href="signup">
+          <Link href="/signup">
             <button
               type="button"
               title="sign up"

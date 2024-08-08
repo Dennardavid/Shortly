@@ -43,7 +43,13 @@ function Login() {
             <label htmlFor="email" className="text-VeryDarkBlue">
               Email:
             </label>
-            <input type="email" name="email" id="email" placeholder="Email" required/>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
             <label htmlFor="password" className="text-VeryDarkBlue">
               Password:
             </label>
@@ -56,13 +62,8 @@ function Login() {
             />
 
             {error && <span className="text-red-500">{error}</span>}
-            <button
-              type="submit"
-              className="p-2 rounded-lg mt-2"
-              formAction={login}
-            >
-              Login
-            </button>
+            <label htmlFor="login" className="sr-only"></label>
+            <input type="submit" value="Login" name="login" className="p-2 rounded-lg mt-2 border-none bg-cyan text-white font-medium text-base" formAction={login} />
           </form>
           <div className="text-center mt-3">
             <p className="text-VeryDarkBlue">

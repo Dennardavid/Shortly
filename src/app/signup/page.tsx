@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { signup } from "../login/actions";
 import Image from "next/image";
-import Aside from "@/components/aside";
+import Aside from "../../components/aside";
 import Shortlylogo from "../../../public/Shortly.webp";
 
 function SignUp() {
