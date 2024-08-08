@@ -1,6 +1,5 @@
 import { createClient } from "../../../utils/supbase/server";
 
-
 export async function getURLs(user_id) {
     const supabase = createClient();
 
