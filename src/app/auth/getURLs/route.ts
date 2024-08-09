@@ -10,6 +10,6 @@ export async function GET() {
     console.log("error fetching URLs");
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-  console.log("this is from the api route",data);
+
   return NextResponse.json(data, { status: 200 });
 }

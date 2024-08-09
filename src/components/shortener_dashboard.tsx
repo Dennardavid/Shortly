@@ -13,15 +13,15 @@ export function DashboardShortener() {
     <div className="mt-7 flex flex-col">
       <div className="flex justify-between mt-9 mb-2">
         <form className="w-4/5">
-          <label htmlFor="shortener" className="sr-only">
-            shorten links
+          <label htmlFor="search" className="sr-only">
+            Search for a link
           </label>
           <input
             type="text"
-            name="shortener"
-            id="shortener"
+            name="search"
+            id="search"
             className="w-full"
-            placeholder="Shorten your links...."
+            placeholder="Search for a link...."
           />
         </form>
         <button
@@ -51,22 +51,60 @@ function ShortenedComp() {
       .then((res) => res.json())
       .then((data) => {
         setUrls(data);
-        return data;
       });
   }, []);
 
-  const downloadQrCode = () => {
-    const ImageURL = urls[0].qr_code;
-    const fileName = urls[0].tittle;
+  const deleteURl = async (id: Number) => {
+    try {
+      const response = await fetch("./auth/deleteURLs", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }), // Send the ID in the request body
+      });
 
-    const anchor = document.createElement("a");
-    anchor.href = ImageURL;
-    anchor.download = fileName;
+      if (!response.ok) {
+        throw new Error("Failed to delete URL");
+      }
 
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
+      const data = await response.json();
+      console.log("URL deleted:", data);
+
+      // Optionally update the UI by removing the deleted URL from the state
+      setUrls((prevUrls) => prevUrls.filter((url) => url.id !== id));
+    } catch (error) {
+      console.error("Error deleting URL:", error);
+    }
   };
+
+  /* Function to download QR code image */
+  const downloadQrCode = async (url) => {
+    try {
+      const response = await fetch(url.qr_code, {
+        mode: "cors",
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = blobUrl;
+      anchor.download = `${url.tittle || "download"}.png`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+
+      // Release the blob URL after download
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Error downloading the QR code:", error);
+    }
+  };
+
   return (
     <div className="mb-3 flex flex-col gap-4 justify-between">
       {urls.map((url) => (
@@ -77,7 +115,7 @@ function ShortenedComp() {
           <div className="flex gap-5">
             <div className="flex items-center">
               <Image
-                src={`${url.qr_code}` || ""}
+                src={`${url.qr_code}` || "/public/next.svg"}
                 alt="qr code"
                 width={120}
                 height={120}
@@ -99,7 +137,10 @@ function ShortenedComp() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button className="bg-transparent" onClick={downloadQrCode}>
+            <button
+              className="bg-transparent"
+              onClick={() => downloadQrCode(url)}
+            >
               <MdOutlineFileDownload size={24} color="hsl(256, 26%, 33%)" />
             </button>
             <button
@@ -111,7 +152,10 @@ function ShortenedComp() {
             >
               <FaRegCopy size={19} color="hsl(256, 26%, 33%)" />
             </button>
-            <button className="bg-transparent">
+            <button
+              className="bg-transparent"
+              onClick={() => deleteURl(url.id)}
+            >
               <MdDeleteOutline size={24} color="hsl(256, 26%, 33%)" />
             </button>
             <button className="rounded-full px-4 py-1">details</button>

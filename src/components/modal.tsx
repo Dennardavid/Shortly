@@ -1,4 +1,3 @@
-import { on } from "events";
 import Image from "next/image";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
