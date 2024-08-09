@@ -28,7 +28,7 @@ export function DashboardShortener() {
 function ShortenedComp() {
   const [urls, setUrls] = useState([]);
   useEffect(() => {
-    fetch("/auth/getURLs")
+    fetch("./auth/getURLs")
       .then((res) => res.json())
       .then((data) => {
         setUrls(data);
