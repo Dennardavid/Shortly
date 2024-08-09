@@ -13,6 +13,7 @@ const config: Config = {
         cyan: "hsl(180, 66%, 49%)",
         Cyanhover: "hsl(180, 75%, 60%)",
         DarkViolet: "hsl(257, 27%, 26%)",
+        LightViolet: "hsl(256, 26%, 33%)",
         Red: "hsl(0, 87%, 67%)",
         Gray: "hsl(0, 0%, 95%)",
         GrayishViolet: "hsl(257, 7%, 63%)",

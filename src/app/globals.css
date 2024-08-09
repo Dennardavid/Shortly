@@ -8,6 +8,9 @@ button {
 input {
   @apply ring-1 ring-cyan p-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan;
 }
+h1,h2,h3,h4,h5,h6 {
+  @apply text-VeryDarkBlue;
+}
 
 /* width */
 ::-webkit-scrollbar {
