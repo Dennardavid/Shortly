@@ -106,7 +106,7 @@ function ShortenedComp() {
   };
 
   return (
-    <div className="mb-3 flex flex-col gap-4 justify-between">
+    <div className="mb-3 flex flex-col gap-4 justify-between bg-Gray">
       {urls.map((url) => (
         <article
           key={url.id}
@@ -115,7 +115,7 @@ function ShortenedComp() {
           <div className="flex gap-5">
             <div className="flex items-center">
               <Image
-                src={`${url.qr_code}` || "/public/next.svg"}
+                src={`${url.qr_code}`}
                 alt="qr code"
                 width={120}
                 height={120}

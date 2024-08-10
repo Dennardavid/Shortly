@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   { original_url, custom_url, user_id, tittle },
-  qr_code: string
+  qr_code
 ) {
   const supabase = createClient();
 
@@ -11,17 +11,32 @@ export async function POST(
   const filename = `qr_${short_url}`;
   const { error: storageError } = await supabase.storage
     .from("QR_code")
-    .upload("file_path", filename);
+    .upload(filename, qr_code);
 
   if (storageError) {
     console.log("error uploading QR code URLs");
     return NextResponse.json({ error: storageError.message }, { status: 500 });
   }
-  const qr = `${supabaseUrl}/storage/v1/object/public/QR_code/${filename}`;
+  const qr = `https://qwyznumhzaledxnrjxtt.supabase.co/storage/v1/object/public/QR_code/${filename}`;
 
   const { data, error } = await supabase
     .from("URLS")
-    .insert([{ original_url, custom_url, user_id, tittle, qr_code: qr }]);
+    .insert([
+      {
+        original_url: original_url,
+        short_url,
+        custom_url: custom_url || null,
+        user_id,
+        tittle,
+        qr_code: qr,
+      },
+    ])
+    .select();
+
+  if (error) {
+    console.log("error creating short URLs");
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   return NextResponse.json(data, { status: 200 });
 }
