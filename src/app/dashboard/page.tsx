@@ -4,6 +4,7 @@ import { createClient } from "../../utils/supbase/server";
 import LinkStats from "@/components/linkstats";
 import { DashboardShortener } from "@/components/shortener_dashboard";
 import { MdLogout } from "react-icons/md";
+
 export default async function Dashboard() {
   const supabase = createClient();
 
@@ -13,7 +14,7 @@ export default async function Dashboard() {
   }
   const userName: string = data?.user?.user_metadata?.user_name;
   return (
-    <main className="bg-Gray px-32 pt-12">
+    <main className="bg-Gray px-32 pt-12 h-full">
       <nav className="flex justify-between items-center">
         <h1 className="font-bold text-3xl mb-4 text-VeryDarkBlue">
           Welcome, {userName}

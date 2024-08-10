@@ -1,19 +1,22 @@
 "use client";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { QRCode } from "react-qrcode-logo";
+import { toPng } from "html-to-image";
+import { createClient } from "../utils/supbase/client";
 
 function Modal({ isVisble, onClose }) {
   const [error, setError] = useState("");
+  const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   const [formContent, setFormContent] = useState({
     tittle: "",
     longUrl: "",
     customUrl: "",
   });
 
-  const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+  const ref = useRef();
 
-  const handleChange = (e) => {
+  const handleURLChange = (e) => {
     const { name, value } = e.target;
 
     // Clear error if longUrl is emptied
@@ -38,6 +41,66 @@ function Modal({ isVisble, onClose }) {
     setFormContent({ ...formContent, [name]: value });
   };
 
+  const handleModalClose = () => {
+    setFormContent({ tittle: "", longUrl: "", customUrl: "" });
+    setError("");
+    onClose();
+  };
+
+  // Close modal on escape key press
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        handleModalClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  const CreateUrl = async (event) => {
+    event.preventDefault();
+    const supabase = createClient(); // Initialize Supabase client
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!formContent.longUrl || error) return;
+
+    try {
+      // Convert the QRCode to a blob
+      const node = ref.current;
+      const qrCodeBlob = await toPng(node);
+
+      const response = await fetch("./auth/createURLs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          original_url: formContent.longUrl,
+          custom_url: formContent.customUrl,
+          user_id: user.id,
+          tittle: formContent.tittle,
+          qr_code: qrCodeBlob,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+
+      console.log("URL created successfully:", data);
+      handleModalClose();
+    } catch (error) {
+      console.log("Error creating URL:", error);
+      setError("Failed to create URL");
+    }
+  };
+
   if (!isVisble) return null;
 
   return (
@@ -47,12 +110,11 @@ function Modal({ isVisble, onClose }) {
         id="
       wrapper"
       >
-        <form className="w-[30%] relative">
+        <form className="w-[30%] relative" onSubmit={CreateUrl}>
           <button
             className="bg-transparent absolute -right-1 -top-8"
-            onClick={() => {
-              onClose();
-            }}
+            type="button"
+            onClick={handleModalClose}
           >
             <IoIosCloseCircleOutline size={30} />
           </button>
@@ -62,7 +124,7 @@ function Modal({ isVisble, onClose }) {
             </h1>
             <div className="flex justify-center">
               {formContent.longUrl && !error && (
-                <QRCode value={formContent?.longUrl} size={250} />
+                <QRCode value={formContent?.longUrl} size={250} ref={ref} />
               )}
             </div>
             <div className="flex flex-col gap-4 mt-5">
@@ -76,7 +138,7 @@ function Modal({ isVisble, onClose }) {
                 className="w-full rounded-lg p-2"
                 placeholder="Enter URL tittle here..."
                 required
-                onChange={handleChange}
+                onChange={handleURLChange}
                 value={formContent.tittle}
               />
               <label htmlFor="longUrl" className="">
@@ -89,7 +151,7 @@ function Modal({ isVisble, onClose }) {
                 className="w-full rounded-lg p-2"
                 placeholder="long URL here..."
                 required
-                onChange={handleChange}
+                onChange={handleURLChange}
                 value={formContent.longUrl}
               />
               <span className="text-Red">{error}</span>
@@ -102,10 +164,12 @@ function Modal({ isVisble, onClose }) {
                 id="customUrl"
                 className="w-full rounded-lg p-2"
                 placeholder="Custom Alias here (Optional)..."
-                onChange={handleChange}
+                onChange={handleURLChange}
                 value={formContent.customUrl}
               />
-              <button className="rounded-xl p-2 mt-4" type="submit">Shorten Link</button>
+              <button className="rounded-xl p-2 mt-4" type="submit" >
+                Shorten Link
+              </button>
             </div>
           </div>
         </form>
