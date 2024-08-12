@@ -25,15 +25,15 @@ function Stats() {
   const articleInfo = articles.map((data) => (
     <article
       key={data.header}
-      className="bg-white rounded-xl px-5 py-8 md:w-[320px] h-[250px] relative"
+      className="bg-white rounded-xl px-5 py-8 md:w-[320px] h-[250px] relative text-center"
     >
-      <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center absolute -top-8">
+      <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center m-auto absolute -top-8">
         <Image src={data.image} alt={data.alt} width={35} height={35} />
       </div>
       <h3 className="mb-3 text-DarkViolet font-bold text-lg mt-9">
         {data.header}
       </h3>
-      <p className="text-sm text-GrayishViolet leading-6 max-w-[260px]">
+      <p className="text-sm text-GrayishViolet leading-6 md:max-w-[260px]">
         {data.text}
       </p>
     </article>
@@ -41,7 +41,7 @@ function Stats() {
   return (
     <section className="flex flex-col items-center bg-Gray mt-8 pb-20">
       <Shortener />
-      <div className="text-center w-[450px]">
+      <div className="text-center w-[80%] md:w-[450px]">
         <h2 className="font-bold text-3xl text-VeryDarkBlue">
           Advanced Statistics
         </h2>
@@ -51,9 +51,9 @@ function Stats() {
         </p>
       </div>
 
-      <hr />
-
-      <div className="flex flex-col gap-12 justify-center md:flex-row mt-16 md:justify-evenly md:w-full bg-slate-500">{articleInfo}</div>
+      <div className="flex flex-col gap-12 justify-center md:flex-row mt-16 md:justify-evenly w-full px-5">
+        {articleInfo}
+      </div>
     </section>
   );
 }
@@ -61,7 +61,7 @@ function Stats() {
 export function Shortener() {
   return (
     <>
-      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-[72px] self-center lg:w-3/5 relative bottom-24 w-4/5 px-4">
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[55px] rounded-lg relative bottom-16 md:bottom-24 w-[90%] px-4 md:px-0 ">
         <form className="flex flex-col md:flex-row justify-center gap-5 w-full">
           <input
             type="text"
