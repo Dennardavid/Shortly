@@ -6,7 +6,7 @@ import shortlyLogo from "../../public/Shortly.webp";
 function NavBar() {
   return (
     <header>
-      <nav className="flex justify-between px-6 md:px-28 py-9 md:py-12">
+      <nav className="flex justify-between px-6 md:px-24 py-9 md:py-12">
         <div className="flex items-center justify-center gap-x-14">
           <Link href="/">
             <Image src={shortlyLogo} alt="Shortly_logo" />

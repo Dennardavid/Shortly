@@ -62,7 +62,7 @@ export function Shortener() {
   return (
     <>
       <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[55px] rounded-lg relative bottom-16 md:bottom-24 w-[90%] px-4 md:px-0 ">
-        <form className="flex flex-col md:flex-row justify-center gap-5 w-full">
+        <form className="flex flex-col md:flex-row justify-center gap-5 w-3/4 mx-auto">
           <input
             type="text"
             placeholder="shorten your link here..."

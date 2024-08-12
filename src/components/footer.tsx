@@ -49,7 +49,7 @@ const SocialIcon = ({ svgPath, width, height, alt }) => (
 
 export function SecondFooter() {
   return (
-    <section className="bg-VeryDarkViolet flex flex-col md:flex-row text-white px-32 justify-between pt-9 pb-10">
+    <section className="bg-VeryDarkViolet flex flex-col md:flex-row text-white px-24 justify-between pt-9 pb-10">
       <div className="self-center md:self-start mb-2 md:mb-0">
         <Link href="/">
           <Image src={shortlyLogo} alt="Shortly logo" />
