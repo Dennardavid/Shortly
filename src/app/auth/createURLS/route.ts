@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   const supabase = createClient();
   const body = await request.json();
 
-  const { original_url, custom_url, user_id, tittle, qr_code } = body;
+  const { original_url, custom_url, user_id, title, qr_code } = body;
 
   const {
     data: { user },
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         short_url,
         custom_url: custom_url || null,
         user_id,
-        tittle,
+        title,
         qr_code: qr,
       },
     ])

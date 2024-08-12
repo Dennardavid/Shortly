@@ -9,7 +9,7 @@ function Modal({ isVisble, onClose }) {
   const [error, setError] = useState("");
   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   const [formContent, setFormContent] = useState({
-    tittle: "",
+    title: "",
     longUrl: "",
     customUrl: "",
   });
@@ -42,7 +42,7 @@ function Modal({ isVisble, onClose }) {
   };
 
   const handleModalClose = () => {
-    setFormContent({ tittle: "", longUrl: "", customUrl: "" });
+    setFormContent({ title: "", longUrl: "", customUrl: "" });
     setError("");
     onClose();
   };
@@ -94,7 +94,7 @@ function Modal({ isVisble, onClose }) {
           original_url: formContent.longUrl,
           custom_url: formContent.customUrl,
           user_id: user.id,
-          tittle: formContent.tittle,
+          title: formContent.title,
           qr_code: qrCodeBlob,
         }),
       });
@@ -141,18 +141,18 @@ function Modal({ isVisble, onClose }) {
               )}
             </div>
             <div className="flex flex-col gap-4 mt-5">
-              <label htmlFor="tittle" className="">
-                Tittle
+              <label htmlFor="title" className="">
+                Title
               </label>
               <input
                 type="text"
-                name="tittle"
-                id="tittle"
+                name="title"
+                id="title"
                 className="w-full rounded-lg p-2"
                 placeholder="Enter URL tittle here..."
                 required
                 onChange={handleURLChange}
-                value={formContent.tittle}
+                value={formContent.title}
               />
               <label htmlFor="longUrl" className="">
                 Long Link
