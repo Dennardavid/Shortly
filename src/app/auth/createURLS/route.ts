@@ -1,5 +1,6 @@
 import { createClient } from "../../../utils/supbase/server";
 import { NextResponse, type NextRequest } from "next/server";
+import { Buffer } from "buffer";
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
@@ -20,9 +21,13 @@ export async function POST(request: NextRequest) {
   const short_url = Math.random().toString(36).substring(2, 7);
   const filename = `qr_${short_url}.png`;
 
+  const ImagePNG = Buffer.from(qr_code, "base64");
+
   const { error: storageError } = await supabase.storage
     .from("QR_code")
-    .upload(filename, qr_code);
+    .upload(filename, ImagePNG, {
+      contentType: "image/png", // Set the correct content type
+    });
 
   if (storageError) {
     console.log("error uploading QR code URLs", storageError);

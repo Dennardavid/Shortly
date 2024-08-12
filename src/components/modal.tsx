@@ -85,7 +85,7 @@ function Modal({ isVisble, onClose }) {
       // Convert the QRCode to a PNG image
       const qrCodeBlob = await toPng(node);
 
-      const response = await fetch("./auth/createURLs", {
+      const response = await fetch("./auth/createURLS", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ function Modal({ isVisble, onClose }) {
           custom_url: formContent.customUrl,
           user_id: user.id,
           title: formContent.title,
-          qr_code: qrCodeBlob,
+          qr_code: qrCodeBlob.split(",")[1],
         }),
       });
 
