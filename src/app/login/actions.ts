@@ -8,8 +8,6 @@ import { createClient } from "../../utils/supbase/server";
 export async function login(formData: FormData) {
   const supabase = createClient();
 
-
-  console.log(supabase)
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {

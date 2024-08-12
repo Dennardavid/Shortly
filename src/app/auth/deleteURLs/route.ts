@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function DELETE(request: NextRequest) {
   const supabase = createClient();
 
-  const { id } = await request.json(); 
+  const { id } = await request.json();
 
   const { data, error } = await supabase.from("URLS").delete().eq("id", id);
 

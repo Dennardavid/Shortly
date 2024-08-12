@@ -14,7 +14,7 @@ function Modal({ isVisble, onClose }) {
     customUrl: "",
   });
 
-  const ref = useRef();
+  const ref = useRef(null);
 
   const handleURLChange = (e) => {
     const { name, value } = e.target;
@@ -64,13 +64,25 @@ function Modal({ isVisble, onClose }) {
     const supabase = createClient(); // Initialize Supabase client
     const {
       data: { user },
+      error: authError,
     } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      setError("User is not authenticated.");
+      return;
+    }
 
     if (!formContent.longUrl || error) return;
 
     try {
       // Convert the QRCode to a blob
       const node = ref.current;
+      if (!node) {
+        setError("QR code could not be generated. Please try again.");
+        return;
+      }
+
+      // Convert the QRCode to a PNG image
       const qrCodeBlob = await toPng(node);
 
       const response = await fetch("./auth/createURLs", {
@@ -88,6 +100,7 @@ function Modal({ isVisble, onClose }) {
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (!response.ok) {
         throw new Error(data.error);
@@ -122,9 +135,9 @@ function Modal({ isVisble, onClose }) {
             <h1 className="text-2xl text-center font-semibold text-VeryDarkBlue">
               shorten a new link
             </h1>
-            <div className="flex justify-center">
+            <div className="flex justify-center bg-slate-500" ref={ref}>
               {formContent.longUrl && !error && (
-                <QRCode value={formContent?.longUrl} size={250} ref={ref} />
+                <QRCode value={formContent?.longUrl} size={250} />
               )}
             </div>
             <div className="flex flex-col gap-4 mt-5">
@@ -167,7 +180,7 @@ function Modal({ isVisble, onClose }) {
                 onChange={handleURLChange}
                 value={formContent.customUrl}
               />
-              <button className="rounded-xl p-2 mt-4" type="submit" >
+              <button className="rounded-xl p-2 mt-4" type="submit">
                 Shorten Link
               </button>
             </div>
