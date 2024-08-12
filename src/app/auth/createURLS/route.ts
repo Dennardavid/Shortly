@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   }
 
   const short_url = Math.random().toString(36).substring(2, 7);
-  const filename = `qr_${short_url}.png`;
+  const filename = `qr_${title}.png`;
 
   const ImagePNG = Buffer.from(qr_code, "base64");
 

@@ -138,12 +138,14 @@ function ShortenedComp() {
           </div>
           <div className="flex items-center gap-4">
             <button
+              title="download QR code"
               className="bg-transparent"
               onClick={() => downloadQrCode(url)}
             >
               <MdOutlineFileDownload size={24} color="hsl(256, 26%, 33%)" />
             </button>
             <button
+              title="Copy Short URL"
               className="bg-transparent"
               onClick={() => {
                 navigator.clipboard.writeText(url.short_url);
@@ -153,12 +155,15 @@ function ShortenedComp() {
               <FaRegCopy size={19} color="hsl(256, 26%, 33%)" />
             </button>
             <button
+              title="Delete shortened URL"
               className="bg-transparent"
               onClick={() => deleteURl(url.id)}
             >
               <MdDeleteOutline size={24} color="hsl(256, 26%, 33%)" />
             </button>
-            <button className="rounded-full px-4 py-1">details</button>
+            <button title="View URL stats" className="rounded-full px-4 py-1">
+              details
+            </button>
           </div>
         </article>
       ))}

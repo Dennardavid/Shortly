@@ -19,7 +19,7 @@ export default async function Dashboard() {
         <h1 className="font-bold text-3xl mb-4 text-VeryDarkBlue">
           Welcome, {userName}
         </h1>
-        <form action="/auth/signout" method="post">
+        <form action="./auth/signout" method="POST">
           <button
             type="submit"
             className="flex items-center px-3 py-1 rounded-full gap-2"
