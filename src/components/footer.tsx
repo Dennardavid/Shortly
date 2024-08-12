@@ -6,7 +6,7 @@ export function FirstFooter() {
   return (
     <>
       <div className="bg-[url(../../public/background.webp)] bg-cover bg-no-repeat flex flex-col justify-center items-center py-16 gap-7">
-        <h2 className="font-bold text-4xl text-white">
+        <h2 className="font-bold text-2xl md:text-4xl text-white">
           Boost your links today
         </h2>
 
@@ -25,9 +25,9 @@ export function FirstFooter() {
 }
 
 const FooterSection = ({ title, links }) => (
-  <div className="footer-features">
-    <h2 className="mb-4">{title}</h2>
-    <ul className="flex flex-col gap-2 text-Gray">
+  <div className="mb-3 mt-2">
+    <h2 className="mb-2 md:mb-4 text-center md:text-left font-semibold text-Gray">{title}</h2>
+    <ul className="flex flex-col text-center md:text-left gap-2 text-GrayishViolet">
       {links.map((link, index) => (
         <li key={index}>
           <a href={link.href}>{link.text}</a>
@@ -49,13 +49,13 @@ const SocialIcon = ({ svgPath, width, height, alt }) => (
 
 export function SecondFooter() {
   return (
-    <section className="bg-VeryDarkViolet flex text-white px-32 justify-between pt-9 pb-10">
-      <div>
+    <section className="bg-VeryDarkViolet flex flex-col md:flex-row text-white px-32 justify-between pt-9 pb-10">
+      <div className="self-center md:self-start mb-2 md:mb-0">
         <Link href="/">
           <Image src={shortlyLogo} alt="Shortly logo" />
         </Link>
       </div>
-      <div className="flex w-[70%] justify-between">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between md:w-[70%]">
         <FooterSection
           title={"Features"}
           links={[
@@ -81,7 +81,7 @@ export function SecondFooter() {
             { href: "#", text: "Contact" },
           ]}
         />
-        <div>
+        <div className="self-center mt-3 md:mt-0 md:self-start">
           <ul className="flex space-x-4">
             <SocialIcon
               svgPath="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"

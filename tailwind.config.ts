@@ -8,7 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
+    /*   screens: {
+        sm: { max: "767px" },
+        md: { min: "768px", max: "1023px" },
+        lg: { min: "1024px", max: "1279px" },
+        xl: { min: "1280px", max: "1535px" },
+        "2xl": { min: "1536px" },
+      }, */
       colors: {
         cyan: "hsl(180, 66%, 49%)",
         Cyanhover: "hsl(180, 75%, 60%)",
@@ -20,7 +26,6 @@ const config: Config = {
         VeryDarkBlue: "hsl(255, 11%, 22%)",
         VeryDarkViolet: "hsl(260, 8%, 14%)",
       },
-     
     },
   },
   plugins: [],

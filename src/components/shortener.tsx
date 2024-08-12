@@ -25,7 +25,7 @@ function Stats() {
   const articleInfo = articles.map((data) => (
     <article
       key={data.header}
-      className="bg-white rounded-xl px-5 py-8 w-[320px] h-[250px] relative"
+      className="bg-white rounded-xl px-5 py-8 md:w-[320px] h-[250px] relative"
     >
       <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center absolute -top-8">
         <Image src={data.image} alt={data.alt} width={35} height={35} />
@@ -53,7 +53,7 @@ function Stats() {
 
       <hr />
 
-      <div className="flex mt-16 justify-evenly w-full">{articleInfo}</div>
+      <div className="flex flex-col gap-12 justify-center md:flex-row mt-16 md:justify-evenly md:w-full bg-slate-500">{articleInfo}</div>
     </section>
   );
 }
@@ -61,14 +61,14 @@ function Stats() {
 export function Shortener() {
   return (
     <>
-      <div className="bg-[url(../../public/background2.webp)] bg-center bg-contain bg-no-repeat py-[72px] self-center lg:w-3/5 relative bottom-24">
-        <form className="flex justify-center gap-5 w-full">
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-[72px] self-center lg:w-3/5 relative bottom-24 w-4/5 px-4">
+        <form className="flex flex-col md:flex-row justify-center gap-5 w-full">
           <input
             type="text"
             placeholder="shorten your link here..."
-            className="w-3/4 p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
+            className="md:w-3/4 p-3 md:p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
           />
-          <button type="submit" className="px-8 rounded-lg">
+          <button type="submit" className="px-8 py-3 rounded-lg">
             Shorten It!
           </button>
         </form>
