@@ -11,8 +11,8 @@ export function DashboardShortener() {
   const [showModal, setShowModal] = useState(false);
   return (
     <div className="mt-7 flex flex-col">
-      <div className="flex justify-between mt-9 mb-2">
-        <form className="w-4/5">
+      <div className="flex flex-col-reverse gap-2 md:flex-row md:justify-between mt-9 mb-2">
+        <form className="md:w-4/5">
           <label htmlFor="search" className="sr-only">
             Search for a link
           </label>
@@ -25,7 +25,7 @@ export function DashboardShortener() {
           />
         </form>
         <button
-          className="self-end rounded-xl px-4 py-2 mb-3"
+          className="md:self-end rounded-xl px-4 py-2 mb-3"
           onClick={() => {
             setShowModal(true);
           }}
@@ -110,24 +110,24 @@ function ShortenedComp() {
       {urls.map((url) => (
         <article
           key={url.id}
-          className="mb-3 flex justify-between w-full items-center bg-white rounded-xl shadow-lg p-5 "
+          className="mb-3 flex flex-col md:flex-row justify-between w-full items-center bg-white rounded-xl shadow-lg p-5 "
         >
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
             <div className="flex items-center">
               <Image
                 src={`${url.qr_code}`}
                 alt="qr code"
-                width={120}
-                height={120}
+                width={100}
+                height={100}
                 className="rounded-sm ring-2 ring-cyan"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <h2 className="font-bold text-3xl">{url.tittle}</h2>
-              <p className="hover:underline text-xl font-semibold text-LightViolet hover:cursor-pointer">
+              <h2 className=" bg-slate-600 font-bold text-lg md:text-2xl lg:text-3xl">{url.tittle}</h2>
+              <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
                 Shortened URL: {url.short_url}
               </p>
-              <p className="hover:underline">
+              <p className="hover:underline text-xs lg:text-sm">
                 Original URL: {url.original_url}
               </p>
 
@@ -136,7 +136,7 @@ function ShortenedComp() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
             <button
               title="download QR code"
               className="bg-transparent"
