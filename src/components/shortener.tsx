@@ -61,8 +61,8 @@ function Stats() {
 export function Shortener() {
   return (
     <>
-      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[45px] rounded-lg bg-green-400 relative bottom-16 md:bottom-24 w-[90%] xl:w-[75%] 2xl:w-[58%]">
-        <form className="flex flex-col md:flex-row justify-center gap-5 w-3/4 md:w-[90%] mx-auto bg-gray-600">
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[45px] rounded-lg relative bottom-16 md:bottom-24 w-[90%] xl:w-[75%] 2xl:w-[58%]">
+        <form className="flex flex-col md:flex-row justify-center gap-5 w-3/4 md:w-[90%] mx-auto">
           <input
             type="text"
             placeholder="shorten your link here..."

@@ -27,16 +27,16 @@ function Login() {
   return (
     <section className="flex">
       <Aside />
-      <div className="flex flex-col items-center w-[55%] justify-center h-screen relative">
+      <div className="bg-Gray md:bg-white flex flex-col items-center w-full md:w-[55%] justify-center h-screen relative">
         <Link href="/">
           <Image
             src={Shortlylogo}
             alt="shortly logo"
-            className="absolute top-12 right-32"
+            className="absolute top-7 right-6 md:absolute md:top-7 md:right-6 lg:absolute lg:top-12 lg:right-20"
           />
         </Link>
-        <div className="w-[60%]">
-          <h1 className="mb-2 font-extrabold text-3xl text-center text-VeryDarkBlue">
+        <div className="w-[80%] lg:w-[60%]">
+          <h1 className="mb-2 font-extrabold text-xl md:text-2xl lg:text-3xl text-center text-VeryDarkBlue">
             Login
           </h1>
           <form className=" flex flex-col gap-3" onSubmit={handleSubmit}>
