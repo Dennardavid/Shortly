@@ -11,6 +11,8 @@ const config: Config = {
       screens: {
         md: "750px" /* Tablet */,
         lg: "1024px" /* Laptop */,
+        xl: "1232px" /* Large Screens */,
+        "2xl": "1390px" /*Very Large Screens */,
       },
       colors: {
         cyan: "hsl(180, 66%, 49%)",

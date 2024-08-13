@@ -55,7 +55,7 @@ export function SecondFooter() {
           <Image src={shortlyLogo} alt="Shortly logo" />
         </Link>
       </div>
-      <div className="flex flex-col md:flex-row md:justify-between md:w-[80%]">
+      <div className="flex flex-col md:flex-row md:justify-between md:w-[76%] lg:w-[70%]">
         <FooterSection
           title={"Features"}
           links={[
