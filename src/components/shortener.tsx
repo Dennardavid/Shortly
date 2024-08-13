@@ -25,7 +25,7 @@ function Stats() {
   const articleInfo = articles.map((data) => (
     <article
       key={data.header}
-      className="bg-white rounded-xl px-5 py-8 md:w-[320px] h-[250px] relative text-center"
+      className="bg-white rounded-xl px-5 py-6 lg:w-[320px] lg:h-[250px] relative text-center md:text-left"
     >
       <div className="h-16 w-16 rounded-full bg-DarkViolet flex items-center justify-center m-auto absolute -top-8">
         <Image src={data.image} alt={data.alt} width={35} height={35} />
@@ -51,7 +51,7 @@ function Stats() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-12 justify-center md:flex-row mt-16 md:justify-evenly w-full px-5">
+      <div className="flex flex-col gap-12 md:gap-7 lg:justify-evenly justify-center md:flex-row mt-16  w-full px-5">
         {articleInfo}
       </div>
     </section>
@@ -61,18 +61,18 @@ function Stats() {
 export function Shortener() {
   return (
     <>
-      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[55px] rounded-lg relative bottom-16 md:bottom-24 w-[90%] px-4 md:px-0 ">
-        <form className="flex flex-col md:flex-row justify-center gap-5 w-3/4 mx-auto">
+      <div className="bg-[url(../../public/background2.webp)] bg-center bg-no-repeat py-6 md:py-[45px] lg:py-[55px] rounded-lg bg-green-400 relative bottom-16 md:bottom-24 w-[90%]">
+        <form className="flex flex-col md:flex-row justify-center gap-5 w-3/4 md:w-[90%] mx-auto bg-gray-600">
           <input
             type="text"
             placeholder="shorten your link here..."
-            className="md:w-3/4 p-3 md:p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
+            className="md:w-[80%] p-2 md:p-3 lg:p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
           />
-          <button type="submit" className="px-8 py-3 rounded-lg">
+          <button type="submit" className="md:w-32 lg:w-48 lg:px-8 py-2 lg:py-3 rounded-lg">
             Shorten It!
           </button>
         </form>
-        <div className="wrongUrlContainer">
+        <div>
           <small id="wrong_url"></small>
         </div>
       </div>

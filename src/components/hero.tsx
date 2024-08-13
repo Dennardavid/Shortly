@@ -4,12 +4,12 @@ import Link from "next/link";
 
 function HeroSection() {
   return (
-    <section className="flex flex-col-reverse md:flex-row justify-between md:pl-24 mt-7 pb-32 md:pb-40">
+    <section className="flex flex-col-reverse md:flex-row justify-between md:pl-10 lg:pl-20 mt-7 pb-32 md:pb-40">
       <div className="self-center text-center mt-8 md:mt-0 md:text-start md:max-w-2xl">
-        <h1 className="font-bold text-5xl md:text-7xl text-VeryDarkBlue leading-tight -tracking-[2px]">
+        <h1 className="font-bold text-5xl lg:text-7xl text-VeryDarkBlue leading-tight -tracking-[2px]">
           More than just shorter links
         </h1>
-        <p className=" font-medium text-GrayishViolet leading-8 max-w-[95%] md:w-[80%] text-lg md:text-xl mt-3 mx-auto md:mx-0">
+        <p className="font-medium text-GrayishViolet leading-8 max-w-[95%] md:w-[100%] text-lg lg:text-2xl mt-3 mx-auto md:mx-0">
           Build your brands recognition and get detailed insights on how your
           links are performing.
         </p>
