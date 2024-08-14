@@ -50,6 +50,7 @@ function ShortenedComp() {
     fetch("./auth/getURLs")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUrls(data);
       });
   }, []);
@@ -123,7 +124,7 @@ function ShortenedComp() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <h2 className=" bg-slate-600 font-bold text-lg md:text-2xl lg:text-3xl">{url.tittle}</h2>
+              <h2 className="font-bold text-lg md:text-2xl lg:text-3xl">{url.title}</h2>
               <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
                 Shortened URL: {url.short_url}
               </p>

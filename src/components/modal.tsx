@@ -123,7 +123,7 @@ function Modal({ isVisble, onClose }) {
         id="
       wrapper"
       >
-        <form className="w-[30%] relative" onSubmit={CreateUrl}>
+        <form className="md:w-[50%] lg:w-[30%] relative" onSubmit={CreateUrl}>
           <button
             className="bg-transparent absolute -right-1 -top-8"
             type="button"
@@ -131,17 +131,21 @@ function Modal({ isVisble, onClose }) {
           >
             <IoIosCloseCircleOutline size={30} />
           </button>
-          <div className="bg-white p-5 rounded-xl shadow-lg ">
-            <h1 className="text-2xl text-center font-semibold text-VeryDarkBlue">
+          <div className="bg-white flex flex-col items-center p-5 rounded-xl shadow-lg ">
+            <h1 className=" text-lg md:text-xl lg:text-2xl text-center font-semibold text-VeryDarkBlue">
               shorten a new link
             </h1>
-            <div className="flex justify-center bg-slate-500" ref={ref}>
+            <div
+              className="flex justify-center"
+              style={{ width: "250px" }}	
+              ref={ref}
+            >
               {formContent.longUrl && !error && (
                 <QRCode value={formContent?.longUrl} size={250} />
               )}
             </div>
-            <div className="flex flex-col gap-4 mt-5">
-              <label htmlFor="title" className="">
+            <div className="flex flex-col gap-4 mt-5 w-full">
+              <label htmlFor="title" className="text-sm -mb-2">
                 Title
               </label>
               <input
@@ -154,7 +158,7 @@ function Modal({ isVisble, onClose }) {
                 onChange={handleURLChange}
                 value={formContent.title}
               />
-              <label htmlFor="longUrl" className="">
+              <label htmlFor="longUrl" className="text-sm -mb-2">
                 Long Link
               </label>
               <input
@@ -168,7 +172,7 @@ function Modal({ isVisble, onClose }) {
                 value={formContent.longUrl}
               />
               <span className="text-Red">{error}</span>
-              <label htmlFor="alias" className="">
+              <label htmlFor="alias" className="text-sm -mb-2">
                 Custom Alias
               </label>
               <input
