@@ -11,9 +11,24 @@ export default async function Dashboard() {
   if (error || !data?.user) {
     redirect("/login");
   }
+
+  const userId = data.user.id;
+
+  // Fetch the total number of links created by the user
+  const { data: linksData, error: linksError } = await supabase
+    .from("URLS")
+    .select("*", { count: "exact" })
+    .eq("user_id", userId);
+
+    if (linksError ) {
+      console.error("Error fetching link stats:", linksError );
+    }
+  
+    const totalLinks = linksData?.length || 0;
+    
   const userName: string = data?.user?.user_metadata?.user_name;
   return (
-    <main className="bg-Gray px-6 md:px-10 lg:px-20 pt-12 h-screen">
+    <main className="bg-Gray px-6 md:px-10 lg:px-20 pt-12">
       <nav className="flex justify-between items-center">
         <h1 className="font-bold text-xl md:text-2xl lg:text-3xl mb-4 text-VeryDarkBlue ">
           Welcome, {userName}
