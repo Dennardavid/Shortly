@@ -5,21 +5,27 @@ import { signup } from "../login/actions";
 import Image from "next/image";
 import Aside from "../../components/aside";
 import Shortlylogo from "../../../public/Shortly.webp";
+import { HashLoader } from "react-spinners";
 
 function SignUp() {
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
+    
     const formData = new FormData(event.currentTarget);
 
     // Calling the server action directly
     const result = await signup(formData);
 
     if (result?.error) {
+      setLoading(false);
       setError(result.error);
     } else {
       // Redirect to login page on success
+      setLoading(false);
       window.location.href = "/login";
     }
   };
@@ -71,8 +77,8 @@ function SignUp() {
               required
             />
             {error && <span className="text-red-500">{error}</span>}
-            <button type="submit" className="p-2 rounded-lg mt-2">
-              Sign up
+            <button type="submit" className="p-2 rounded-lg mt-2 h-10 flex justify-center items-center">
+            {loading ? <HashLoader color="#fff" size={20} /> : "Sign up"}
             </button>
           </form>
           <div className="text-center mt-3">

@@ -148,7 +148,9 @@ function ShortenedComp({ urls, setUrls }) {
                 alt="qr code"
                 width={100}
                 height={100}
+                priority={true}
                 className="rounded-sm ring-2 ring-cyan"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -170,14 +172,14 @@ function ShortenedComp({ urls, setUrls }) {
           <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
             <button
               title="download QR code"
-              className="bg-transparent"
+              className="bg-transparent p-2 rounded-full hover:bg-Gray"
               onClick={() => downloadQrCode(url)}
             >
               <MdOutlineFileDownload size={24} color="hsl(256, 26%, 33%)" />
             </button>
             <button
               title="Copy Short URL"
-              className="bg-transparent"
+              className="bg-transparent p-2 rounded-full hover:bg-Gray"
               onClick={() => {
                 navigator.clipboard.writeText(url.short_url);
                 console.log(`Copied: ${url.short_url}`);
@@ -187,7 +189,7 @@ function ShortenedComp({ urls, setUrls }) {
             </button>
             <button
               title="Delete shortened URL"
-              className="bg-transparent"
+              className="bg-transparent p-2 rounded-full hover:bg-Gray"
               onClick={() => deleteURl(url.id)}
             >
               <MdDeleteOutline size={24} color="hsl(256, 26%, 33%)" />

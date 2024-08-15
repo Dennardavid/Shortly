@@ -4,9 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import { QRCode } from "react-qrcode-logo";
 import { toPng } from "html-to-image";
 import { createClient } from "../utils/supbase/client";
+import { HashLoader  } from "react-spinners";
 
 function Modal({ isVisble, onClose, onUrlCreated }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   const [formContent, setFormContent] = useState({
     title: "",
@@ -44,6 +46,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
   const handleModalClose = () => {
     setFormContent({ title: "", longUrl: "", customUrl: "" });
     setError("");
+    setLoading(false);
     onClose();
   };
 
@@ -61,6 +64,8 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
 
   const CreateUrl = async (event) => {
     event.preventDefault();
+
+    setLoading(true);
     const supabase = createClient(); // Initialize Supabase client
     const {
       data: { user },
@@ -69,16 +74,21 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
 
     if (authError || !user) {
       setError("User is not authenticated.");
+      setLoading(false);
       return;
     }
 
-    if (!formContent.longUrl || error) return;
+    if (!formContent.longUrl || error) {
+      setLoading(false);
+      return;
+    }
 
     try {
       // Convert the QRCode to a blob
       const node = ref.current;
       if (!node) {
         setError("QR code could not be generated. Please try again.");
+        setLoading(false);
         return;
       }
 
@@ -105,6 +115,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
         throw new Error(data.error);
       }
 
+      setLoading(false);
       console.log("URL created successfully:", data);
 
       // Update the URLs in the parent component
@@ -114,6 +125,8 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
     } catch (error) {
       console.log("Error creating URL:", error);
       setError("Failed to create URL");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -186,8 +199,12 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
                 onChange={handleURLChange}
                 value={formContent.customUrl}
               />
-              <button className="rounded-xl p-2 mt-4" type="submit">
-                Shorten Link
+              <button className="rounded-xl p-2 mt-4 flex justify-center items-center h-10" type="submit">
+                {loading ? (
+                  <HashLoader size={20} color="#fff" />
+                ) : (
+                  "Shorten Link"
+                )}
               </button>
             </div>
           </div>

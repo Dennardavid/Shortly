@@ -5,11 +5,14 @@ import Aside from "@/components/aside";
 import Image from "next/image";
 import Shortlylogo from "../../../public/Shortly.webp";
 import { login } from "./actions";
+import { HashLoader } from "react-spinners";
 
 function Login() {
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -17,8 +20,10 @@ function Login() {
     const result = await login(formData);
 
     if (result?.error) {
+      setLoading(false);
       setError(result.error);
     } else {
+      setLoading(false);
       // Redirect to dashboard on success
       window.location.href = "/dashboard";
     }
@@ -64,9 +69,9 @@ function Login() {
             {error && <span className="text-red-500">{error}</span>}
             <button
               type="submit"
-              className="p-2 rounded-lg mt-2 border-none font-medium text-base"
+              className="p-2 rounded-lg mt-2 text-base h-10 flex justify-center items-center"
             >
-              Login
+              {loading ? <HashLoader color="#fff" size={20} /> : "Login"}
             </button>
           </form>
           <div className="text-center mt-3">
