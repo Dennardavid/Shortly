@@ -5,7 +5,7 @@ import { QRCode } from "react-qrcode-logo";
 import { toPng } from "html-to-image";
 import { createClient } from "../utils/supbase/client";
 
-function Modal({ isVisble, onClose }) {
+function Modal({ isVisble, onClose, onUrlCreated }) {
   const [error, setError] = useState("");
   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   const [formContent, setFormContent] = useState({
@@ -100,13 +100,16 @@ function Modal({ isVisble, onClose }) {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (!response.ok) {
         throw new Error(data.error);
       }
 
       console.log("URL created successfully:", data);
+
+      // Update the URLs in the parent component
+      onUrlCreated(data[0]);
+
       handleModalClose();
     } catch (error) {
       console.log("Error creating URL:", error);
@@ -120,8 +123,7 @@ function Modal({ isVisble, onClose }) {
     <>
       <div
         className="fixed inset-0 bg-black bg-opacity-25 z-40 backdrop-blur-sm flex flex-col justify-center items-center"
-        id="
-      wrapper"
+        id="wrapper"
       >
         <form className="md:w-[50%] lg:w-[30%] relative" onSubmit={CreateUrl}>
           <button
@@ -137,7 +139,7 @@ function Modal({ isVisble, onClose }) {
             </h1>
             <div
               className="flex justify-center"
-              style={{ width: "250px" }}	
+              style={{ width: "250px" }}
               ref={ref}
             >
               {formContent.longUrl && !error && (

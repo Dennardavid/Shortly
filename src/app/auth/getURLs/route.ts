@@ -1,13 +1,25 @@
 import { createClient } from "../../../utils/supbase/server";
-import { NextResponse } from "next/server";
+import { NextResponse,NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const supabase = createClient();
+  
+  // Get the authenticated user
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase.from("URLS").select("*");
+  if (authError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { data, error } = await supabase
+    .from("URLS")
+    .select("*")
+    .eq("user_id", user.id); // Filter by user_id
 
   if (error) {
-    console.log("error fetching URLs");
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 

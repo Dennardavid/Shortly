@@ -5,10 +5,17 @@ import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineFileDownload } from "react-icons/md";
 import Image from "next/image";
 import Modal from "./modal";
+import Loading from "./urlLoading";
 import { useEffect, useState } from "react";
 
 export function DashboardShortener() {
   const [showModal, setShowModal] = useState(false);
+  const [urls, setUrls] = useState([]);
+
+  const handleAddUrl = (newUrl) => {
+    setUrls((prevUrls) => [...prevUrls, newUrl]);
+  };
+
   return (
     <div className="mt-7 flex flex-col">
       <div className="flex flex-col-reverse gap-2 md:flex-row md:justify-between mt-9 mb-2">
@@ -33,27 +40,48 @@ export function DashboardShortener() {
           Shorten Link
         </button>
       </div>
-      <ShortenedComp />
+      <ShortenedComp urls={urls} setUrls={setUrls} />
       <Modal
         isVisble={showModal}
         onClose={() => {
           setShowModal(false);
         }}
+        onUrlCreated={handleAddUrl}
       />
     </div>
   );
 }
 
-function ShortenedComp() {
-  const [urls, setUrls] = useState([]);
+function ShortenedComp({ urls, setUrls }) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch("./auth/getURLs")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setUrls(data);
-      });
-  }, []);
+    async function fetchUrls() {
+      setLoading(true);
+      try {
+        fetch("./auth/getURLs")
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.error) {
+              setUrls(data);
+              setLoading(false);
+            } else {
+              console.error(data.error);
+              setLoading(false);
+            }
+          });
+      } catch (error) {
+        console.error("Error fetching URLs:", error);
+        setLoading(false);
+      }
+    }
+
+    fetchUrls();
+  }, [setUrls]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const deleteURl = async (id: Number) => {
     try {
@@ -124,7 +152,9 @@ function ShortenedComp() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <h2 className="font-bold text-lg md:text-2xl lg:text-3xl">{url.title}</h2>
+              <h2 className="font-bold text-lg md:text-2xl lg:text-3xl">
+                {url.title}
+              </h2>
               <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
                 Shortened URL: {url.short_url}
               </p>
