@@ -100,7 +100,7 @@ function ShortenedComp({ urls, setUrls }) {
       const data = await response.json();
       console.log("URL deleted:", data);
 
-      // Optionally update the UI by removing the deleted URL from the state
+      //update the UI by removing the deleted URL from the state
       setUrls((prevUrls) => prevUrls.filter((url) => url.id !== id));
     } catch (error) {
       console.error("Error deleting URL:", error);
@@ -158,7 +158,7 @@ function ShortenedComp({ urls, setUrls }) {
                 {url.title}
               </h2>
               <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
-                Shortened URL: {url.short_url}
+                Shortened URL: {`linksnap.com/${url.short_url}`}
               </p>
               <p className="hover:underline text-xs lg:text-sm">
                 Original URL: {url.original_url}
