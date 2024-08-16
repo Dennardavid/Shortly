@@ -70,10 +70,10 @@ export function Shortener() {
             placeholder="shorten your link here..."
             className="md:w-[80%] p-2 md:p-3 lg:p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
           />
-          <Link href="/login">
+          <Link href="/login" className="">
             <button
               type="submit"
-              className="md:w-32 lg:w-48 lg:px-8 py-2 lg:py-3 rounded-lg"
+              className="h-full w-full md:w-32 lg:w-48 lg:px-8 py-2 lg:py-3 rounded-lg"
             >
               Shorten It!
             </button>
