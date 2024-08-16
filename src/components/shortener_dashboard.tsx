@@ -7,6 +7,7 @@ import Image from "next/image";
 import Modal from "./modal";
 import Loading from "./urlLoading";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export function DashboardShortener() {
   const [showModal, setShowModal] = useState(false);
@@ -165,9 +166,9 @@ function ShortenedComp({ urls, setUrls }) {
               <h2 className="font-bold text-lg md:text-2xl lg:text-3xl">
                 {url.title}
               </h2>
-              <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
+              <Link href={url.short_url} target="_blank" className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
                 Shortened URL: {url.short_url}
-              </p>
+              </Link>
               <p className="hover:underline text-xs lg:text-sm">
                 Original URL: {url.original_url}
               </p>
