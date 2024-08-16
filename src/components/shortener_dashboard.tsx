@@ -58,6 +58,7 @@ function ShortenedComp({ urls, setUrls }) {
   useEffect(() => {
     async function fetchUrls() {
       setLoading(true);
+
       try {
         fetch("./auth/getURLs")
           .then((res) => res.json())
@@ -83,6 +84,14 @@ function ShortenedComp({ urls, setUrls }) {
     return <Loading />;
   }
 
+  if (urls.length === 0) {
+    return (
+      <div className="text-center text-VeryDarkBlue">
+        <p>No shortened URLs found. Start by creating a new one!</p>
+      </div>
+    );
+  }
+
   const deleteURl = async (id: Number) => {
     try {
       const response = await fetch("./auth/deleteURLs", {
@@ -98,7 +107,6 @@ function ShortenedComp({ urls, setUrls }) {
       }
 
       const data = await response.json();
-      console.log("URL deleted:", data);
 
       //update the UI by removing the deleted URL from the state
       setUrls((prevUrls) => prevUrls.filter((url) => url.id !== id));
@@ -158,7 +166,7 @@ function ShortenedComp({ urls, setUrls }) {
                 {url.title}
               </h2>
               <p className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
-                Shortened URL: {`linksnap.com/${url.short_url}`}
+                Shortened URL: {url.short_url}
               </p>
               <p className="hover:underline text-xs lg:text-sm">
                 Original URL: {url.original_url}

@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const supabase = createClient();
   const body = await request.json();
 
-  const { original_url, custom_url, user_id, title, qr_code } = body;
+  const { original_url, short_url, user_id, title, qr_code } = body;
 
   const {
     data: { user },
@@ -14,11 +14,10 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    console.log(authError);
+    console.error(authError);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const short_url = Math.random().toString(36).substring(2, 7);
   const filename = `qr_${title}.png`;
 
   const ImagePNG = Buffer.from(qr_code, "base64");
@@ -30,7 +29,7 @@ export async function POST(request: NextRequest) {
     });
 
   if (storageError) {
-    console.log("error uploading QR code URLs", storageError);
+    console.error("Error uploading QR code:", storageError.message);
     return NextResponse.json({ error: storageError.message }, { status: 500 });
   }
 
@@ -42,7 +41,6 @@ export async function POST(request: NextRequest) {
       {
         original_url,
         short_url,
-        custom_url: custom_url || null,
         user_id,
         title,
         qr_code: qr,
@@ -51,7 +49,6 @@ export async function POST(request: NextRequest) {
     .select();
 
   if (error) {
-    console.log("error creating short URLs");
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 

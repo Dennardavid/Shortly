@@ -1,4 +1,4 @@
-import { createClient } from "../../../utils/supbase/server";
+/* import { createClient } from "../../../utils/supbase/server";
 
 export async function getClicks(Url_ID) {
   const supabase = createClient();
@@ -14,3 +14,4 @@ export async function getClicks(Url_ID) {
   }
   return data;
 }
+ */

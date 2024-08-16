@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
 import { TbHandClick } from "react-icons/tb";
 import { FaLink } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function LinkStats() {
   const [totalLinks, setTotalLinks] = useState(0);
 
   const fetchUpdatedStats = async () => {
     try {
-      const response = await fetch("./auth/getURLs");
+      const response = await fetch('/auth/getURLs');
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
       if (!data.error) {
         setTotalLinks(data.length);
@@ -21,7 +24,9 @@ function LinkStats() {
     }
   };
 
-  fetchUpdatedStats();
+  useEffect(() => {
+    fetchUpdatedStats();
+  }, []);
 
   return (
     <div className="flex justify-between mt-8 text-VeryDarkBlue">

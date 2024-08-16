@@ -1,4 +1,6 @@
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
 
 function Stats() {
   const articles = [
@@ -68,9 +70,14 @@ export function Shortener() {
             placeholder="shorten your link here..."
             className="md:w-[80%] p-2 md:p-3 lg:p-4 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan"
           />
-          <button type="submit" className="md:w-32 lg:w-48 lg:px-8 py-2 lg:py-3 rounded-lg">
-            Shorten It!
-          </button>
+          <Link href="/login">
+            <button
+              type="submit"
+              className="md:w-32 lg:w-48 lg:px-8 py-2 lg:py-3 rounded-lg"
+            >
+              Shorten It!
+            </button>
+          </Link>
         </form>
         <div>
           <small id="wrong_url"></small>

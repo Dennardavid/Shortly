@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { QRCode } from "react-qrcode-logo";
 import { toPng } from "html-to-image";
 import { createClient } from "../utils/supbase/client";
-import { HashLoader  } from "react-spinners";
+import { HashLoader } from "react-spinners";
 
 function Modal({ isVisble, onClose, onUrlCreated }) {
   const [error, setError] = useState("");
@@ -95,14 +95,41 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
       // Convert the QRCode to a PNG image
       const qrCodeBlob = await toPng(node);
 
-      const response = await fetch("./auth/createURLS", {
+      /* Create short URL with TinyURL API */
+      const shortURL = await fetch("https://api.tinyurl.com/create/", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer 57eh2MajxZz40AeNHLL6AVsmjvZDkXDYyx2w5oU3KiqAIhzfFuRbnjufevEF`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: formContent.longUrl,
+          domain: "tinyurl.com",
+          description: "string",
+        }),
+      });
+
+      if (!shortURL.ok) {
+        console.error("Failed to shorten URL");
+        return;
+      }
+
+      const shorturlData = await shortURL.json();
+
+      const linkData = {
+        tiny_url: shorturlData.data.tiny_url,
+      };
+
+      /* Updating the data base with the form content */
+      const response = await fetch("/auth/createURLS", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           original_url: formContent.longUrl,
-          custom_url: formContent.customUrl,
+          short_url: linkData.tiny_url,
           user_id: user.id,
           title: formContent.title,
           qr_code: qrCodeBlob.split(",")[1],
@@ -116,14 +143,12 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
       }
 
       setLoading(false);
-      console.log("URL created successfully:", data);
 
       // Update the URLs in the parent component
       onUrlCreated(data[0]);
 
       handleModalClose();
     } catch (error) {
-      console.log("Error creating URL:", error);
       setError("Failed to create URL");
     } finally {
       setLoading(false);
@@ -199,7 +224,10 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
                 onChange={handleURLChange}
                 value={formContent.customUrl}
               />
-              <button className="rounded-xl p-2 mt-4 flex justify-center items-center h-10" type="submit">
+              <button
+                className="rounded-xl p-2 mt-4 flex justify-center items-center h-10"
+                type="submit"
+              >
                 {loading ? (
                   <HashLoader size={20} color="#fff" />
                 ) : (

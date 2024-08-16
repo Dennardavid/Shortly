@@ -9,7 +9,7 @@ export async function DELETE(request: NextRequest) {
   const { data, error } = await supabase.from("URLS").delete().eq("id", id);
 
   if (error) {
-    console.log("Error deleting URL:", error.message);
+    console.error("Error deleting URL:", error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
