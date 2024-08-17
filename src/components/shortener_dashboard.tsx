@@ -7,14 +7,22 @@ import Image from "next/image";
 import Modal from "./modal";
 import Loading from "./urlLoading";
 import { useEffect, useState } from "react";
+import LinkNotFound from "./linknotefound";
 import Link from "next/link";
 
 export function DashboardShortener() {
   const [showModal, setShowModal] = useState(false);
   const [urls, setUrls] = useState([]);
+  const [search, setSearch] = useState("");
+
+  console.log(urls);
 
   const handleAddUrl = (newUrl) => {
     setUrls((prevUrls) => [...prevUrls, newUrl]);
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -30,6 +38,7 @@ export function DashboardShortener() {
             id="search"
             className="w-full"
             placeholder="Search for a link...."
+            onChange={handleSearch}
           />
         </form>
         <button
@@ -41,7 +50,7 @@ export function DashboardShortener() {
           Shorten Link
         </button>
       </div>
-      <ShortenedComp urls={urls} setUrls={setUrls} />
+      <ShortenedComp urls={urls} setUrls={setUrls} search={search} />
       <Modal
         isVisble={showModal}
         onClose={() => {
@@ -53,7 +62,7 @@ export function DashboardShortener() {
   );
 }
 
-function ShortenedComp({ urls, setUrls }) {
+function ShortenedComp({ urls, setUrls, search }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -143,9 +152,20 @@ function ShortenedComp({ urls, setUrls }) {
     }
   };
 
+  const filteredUrls = urls.filter((url) => {
+    return search.toLowerCase() === ""
+      ? url
+      : url.title.toLowerCase().includes(search.toLowerCase()) ||
+          url.short_url.toLowerCase().includes(search.toLowerCase()) ||
+          url.original_url.toLowerCase().includes(search.toLowerCase());
+  });
+
+  if (filteredUrls.length === 0) {
+    return <LinkNotFound />;
+  }
   return (
     <div className="mb-3 flex flex-col gap-4 justify-between bg-Gray">
-      {urls.map((url) => (
+      {filteredUrls.map((url) => (
         <article
           key={url.id}
           className="mb-3 flex flex-col md:flex-row justify-between w-full items-center bg-white rounded-xl shadow-lg p-5 "
@@ -166,7 +186,11 @@ function ShortenedComp({ urls, setUrls }) {
               <h2 className="font-bold text-lg md:text-2xl lg:text-3xl">
                 {url.title}
               </h2>
-              <Link href={url.short_url} target="_blank" className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer">
+              <Link
+                href={url.short_url}
+                target="_blank"
+                className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer"
+              >
                 Shortened URL: {url.short_url}
               </Link>
               <p className="hover:underline text-xs lg:text-sm">

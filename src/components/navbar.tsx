@@ -15,27 +15,27 @@ function NavBar() {
 
   return (
     <header>
-      <nav className="flex justify-between px-6 md:px-10 lg:px-20 py-9 md:py-12">
+      <nav className="flex justify-between px-6 md:px-10 lg:px-20 py-9 md:py-10">
         <div className="flex items-center justify-center md:gap-x-8 lg:gap-x-14">
           <Link href="/">
             <Image src={shortlyLogo} alt="Shortly_logo" />
           </Link>
           <ul className="text-GrayishViolet text-base font-medium hidden md:flex md:gap-x-8 lg:gap-x-10">
             <li>
-              <a href="#">Features</a>
+              <a className="hover:text-VeryDarkViolet" href="#">Features</a>
             </li>
             <li>
-              <a href="#">Pricing</a>
+              <a className="hover:text-VeryDarkViolet" href="#">Pricing</a>
             </li>
             <li>
-              <a href="#">Resources</a>
+              <a className="hover:text-VeryDarkViolet" href="#">Resources</a>
             </li>
           </ul>
         </div>
         <div className="hidden md:flex md:gap-x-8 lg:gap-x-10 items-center">
           <Link
             href="/login"
-            className="font-medium text-base text-GrayishViolet"
+            className="font-medium text-base text-GrayishViolet hover:text-VeryDarkViolet"
           >
             Login
           </Link>

@@ -181,7 +181,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
               ref={ref}
             >
               {formContent.longUrl && !error && (
-                <QRCode value={formContent?.longUrl} size={150} />
+                <QRCode value={formContent?.longUrl} size={200} />
               )}
             </div>
             <div className="flex flex-col gap-4 mt-5 w-full">

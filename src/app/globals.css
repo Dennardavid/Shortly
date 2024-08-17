@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 button {
-  @apply border-none bg-cyan text-white font-medium text-sm lg:text-base;
+  @apply border-none bg-cyan text-white font-medium text-sm lg:text-base hover:bg-Cyanhover;
 }
 input {
   @apply ring-1 ring-cyan p-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan;
@@ -29,3 +29,6 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 
+/* *{
+  border: 0.2px solid red;
+} */
