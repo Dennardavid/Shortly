@@ -5,11 +5,13 @@ import { signup } from "../login/actions";
 import Image from "next/image";
 import Aside from "../../components/aside";
 import Shortlylogo from "../../../public/Shortly.webp";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { HashLoader } from "react-spinners";
 
 function SignUp() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,6 +32,10 @@ function SignUp() {
     }
   };
 
+  /* Function to shwo password */
+  const handleShow = (e) => {
+    setShowPassword(!showPassword);
+  };
   return (
     <section className="flex">
       <Aside />
@@ -69,13 +75,31 @@ function SignUp() {
             <label htmlFor="password" className="text-VeryDarkBlue">
               Password:
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              required
-            />
+            <div className="flex items-center w-full ring-1 ring-cyan rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan gap-2">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Password"
+                className="ring-0 ring-transparent w-[95%] focus:ring-transparent focus:ring-0"
+                required
+              />
+              {showPassword ? (
+                <FaEye
+                  className="hover:cursor-pointer mr-2"
+                  size={20}
+                  color="hsl(257, 27%, 26%)"
+                  onClick={handleShow}
+                />
+              ) : (
+                <FaEyeSlash
+                  className="hover:cursor-pointer mr-2"
+                  size={20}
+                  color="hsl(257, 27%, 26%)"
+                  onClick={handleShow}
+                />
+              )}
+            </div>
             {error && <span className="text-red-500">{error}</span>}
             <button type="submit" className="p-2 rounded-lg mt-2 h-10 flex justify-center items-center">
             {loading ? <HashLoader color="#fff" size={20} /> : "Sign up"}
