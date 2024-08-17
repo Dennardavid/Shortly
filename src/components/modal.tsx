@@ -7,6 +7,9 @@ import { createClient } from "../utils/supbase/client";
 import { HashLoader } from "react-spinners";
 
 function Modal({ isVisble, onClose, onUrlCreated }) {
+  const [titleError, setTitleError] = useState("");
+  const [longUrlError, setLongUrlError] = useState("");
+  const [customUrlError, setCustomUrlError] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -21,24 +24,26 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
   const handleURLChange = (e) => {
     const { name, value } = e.target;
 
-    // Clear error if longUrl is emptied
+    // Clear error for the current field
+    if (name === "title") {
+      setTitleError("");
+    } else if (name === "longUrl") {
+      setLongUrlError("");
+    } else if (name === "customUrl") {
+      setCustomUrlError("");
+    }
+  
+    // Validation for `longUrl` and `customUrl`
     if (name === "longUrl") {
-      if (value === "") {
-        setError("");
-        setFormContent({ ...formContent, [name]: value });
-        return;
-      }
-
-      // Check if the URL is valid
       if (!urlRegex.test(value)) {
-        setError("Please enter a valid URL");
-        setFormContent({ ...formContent, [name]: value });
-        return;
-      } else {
-        setError("");
+        setLongUrlError("Please enter a valid URL");
+      }
+    } else if (name === "customUrl") {
+      if (value.length > 0 && value.length < 6) {
+        setCustomUrlError("Custom alias must be at least 6 characters long");
       }
     }
-
+  
     // Update form content
     setFormContent({ ...formContent, [name]: value });
   };
@@ -66,6 +71,13 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
     event.preventDefault();
 
     setLoading(true);
+
+    if (formContent.customUrl && formContent.customUrl.length < 6) {
+      setError("Custom alias must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
     const supabase = createClient(); // Initialize Supabase client
     const {
       data: { user },
@@ -106,6 +118,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
         body: JSON.stringify({
           url: formContent.longUrl,
           domain: "tinyurl.com",
+          alias: formContent.customUrl || "",
           description: "string",
         }),
       });
@@ -165,7 +178,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
       >
         <form className="md:w-[50%] lg:w-[30%] relative" onSubmit={CreateUrl}>
           <button
-            className="bg-transparent absolute -right-1 -top-8"
+            className="bg-transparent absolute -right-1 -top-8 hover:bg-transparent hover:text-LightViolet"
             type="button"
             onClick={handleModalClose}
           >
@@ -198,6 +211,9 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
                 onChange={handleURLChange}
                 value={formContent.title}
               />
+              {titleError && (
+                <span className="text-Red text-sm">{titleError}</span>
+              )}
               <label htmlFor="longUrl" className="text-sm -mb-2">
                 Long Link
               </label>
@@ -211,7 +227,9 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
                 onChange={handleURLChange}
                 value={formContent.longUrl}
               />
-              <span className="text-Red">{error}</span>
+              {longUrlError && (
+                <span className="text-Red text-sm">{longUrlError}</span>
+              )}
               <label htmlFor="alias" className="text-sm -mb-2">
                 Custom Alias
               </label>
@@ -224,6 +242,9 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
                 onChange={handleURLChange}
                 value={formContent.customUrl}
               />
+              {customUrlError && (
+                <span className="text-Red text-sm">{customUrlError}</span>
+              )}
               <button
                 className="rounded-xl p-2 mt-4 flex justify-center items-center h-10"
                 type="submit"
