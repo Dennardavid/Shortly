@@ -11,8 +11,8 @@ import { HashLoader } from "react-spinners";
 
 function Login() {
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -32,7 +32,7 @@ function Login() {
     }
   };
 
-   /* Function to shwo password */
+   /* Function to show password */
   const handleShow = (e) => {
     setShowPassword(!showPassword);
   };

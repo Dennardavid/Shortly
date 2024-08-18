@@ -32,7 +32,7 @@ function SignUp() {
     }
   };
 
-  /* Function to shwo password */
+  /* Function to show password */
   const handleShow = (e) => {
     setShowPassword(!showPassword);
   };

@@ -5,7 +5,7 @@ import { FaLink } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 
 function LinkStats() {
-  const [totalLinks, setTotalLinks] = useState(0);
+  const [totalLinks, setTotalLinks] = useState<number>(0);
 
   const fetchUpdatedStats = async () => {
     try {

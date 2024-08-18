@@ -11,9 +11,9 @@ import LinkNotFound from "./linknotefound";
 import Link from "next/link";
 
 export function DashboardShortener() {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [urls, setUrls] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
 
   console.log(urls);
 
@@ -63,7 +63,7 @@ export function DashboardShortener() {
 }
 
 function ShortenedComp({ urls, setUrls, search }) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchUrls() {

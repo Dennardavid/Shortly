@@ -7,7 +7,7 @@ import { MdOutlineClose } from "react-icons/md";
 import shortlyLogo from "../../public/Shortly.webp";
 
 function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -60,7 +60,7 @@ function NavBar() {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="bg-DarkViolet text-white md:hidden absolute top-20 right-5 w-[90%] rounded-lg h-20vh flex flex-col items-center justify-center space-y-4 z-50 py-4 ">
+        <div className="bg-DarkViolet text-white md:hidden absolute top-20 right-5 w-[90%] rounded-lg h-20vh flex flex-col items-center justify-center space-y-4 z-50 py-4">
           <ul className="flex flex-col items-center gap-y-4">
             <li>
               <a href="#" className="text-white font-medium">

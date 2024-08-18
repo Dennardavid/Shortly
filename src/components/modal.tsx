@@ -7,11 +7,11 @@ import { createClient } from "../utils/supbase/client";
 import { HashLoader } from "react-spinners";
 
 function Modal({ isVisble, onClose, onUrlCreated }) {
-  const [titleError, setTitleError] = useState("");
-  const [longUrlError, setLongUrlError] = useState("");
-  const [customUrlError, setCustomUrlError] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [titleError, setTitleError] = useState<string>("");
+  const [longUrlError, setLongUrlError] = useState<string>("");
+  const [customUrlError, setCustomUrlError] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   const [formContent, setFormContent] = useState({
     title: "",
@@ -67,7 +67,7 @@ function Modal({ isVisble, onClose, onUrlCreated }) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  const CreateUrl = async (event) => {
+  const CreateUrl = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setLoading(true);

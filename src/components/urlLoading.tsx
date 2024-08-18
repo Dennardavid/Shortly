@@ -3,7 +3,7 @@ export default function Loading() {
     <div className="motion-safe:animate-pulse">
       {Array(3) 
         .fill("")
-        .map((_, index) => (
+        .map((_, index: number) => (
           <div
             key={index}
             className="mb-3 flex flex-col md:flex-row justify-between w-full items-center bg-white rounded-xl shadow-lg p-5"
