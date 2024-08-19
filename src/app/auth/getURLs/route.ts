@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const supabase = createClient();
   
-  // Get the authenticated user
   const {
     data: { user },
     error: authError,

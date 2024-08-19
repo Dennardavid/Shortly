@@ -9,13 +9,12 @@ import Loading from "./urlLoading";
 import { useEffect, useState } from "react";
 import LinkNotFound from "./linknotefound";
 import Link from "next/link";
+import UrlDetails from "./getclicks";
 
 export function DashboardShortener() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [urls, setUrls] = useState([]);
   const [search, setSearch] = useState<string>("");
-
-  console.log(urls);
 
   const handleAddUrl = (newUrl) => {
     setUrls((prevUrls) => [...prevUrls, newUrl]);
@@ -64,6 +63,7 @@ export function DashboardShortener() {
 
 function ShortenedComp({ urls, setUrls, search }) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [showDetails, setShowDetails] = useState<number | null>(null);
 
   useEffect(() => {
     async function fetchUrls() {
@@ -109,7 +109,7 @@ function ShortenedComp({ urls, setUrls, search }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }), // Send the ID in the request body
+        body: JSON.stringify({ id }), 
       });
 
       if (!response.ok) {
@@ -227,10 +227,15 @@ function ShortenedComp({ urls, setUrls, search }) {
             >
               <MdDeleteOutline size={24} color="hsl(256, 26%, 33%)" />
             </button>
-            <button title="View URL stats" className="rounded-full px-4 py-1">
+            <button
+              title="View URL stats"
+              className="rounded-full px-4 py-1"
+              onClick={() => setShowDetails(url.id)}
+            >
               details
             </button>
           </div>
+          {showDetails === url.id && <UrlDetails urlId={url.id} />}
         </article>
       ))}
     </div>
