@@ -9,7 +9,7 @@ import Loading from "./urlLoading";
 import { useEffect, useState } from "react";
 import LinkNotFound from "./linknotefound";
 import Link from "next/link";
-import UrlDetails from "./getclicks";
+import UrlDetailsModal from "./getclicks";
 
 export function DashboardShortener() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export function DashboardShortener() {
   const [search, setSearch] = useState<string>("");
 
   const handleAddUrl = (newUrl) => {
-    setUrls((prevUrls) => [...prevUrls, newUrl]);
+    setUrls((prevUrls) => [newUrl, ...prevUrls ]);
   };
 
   const handleSearch = (e) => {
@@ -70,17 +70,15 @@ function ShortenedComp({ urls, setUrls, search }) {
       setLoading(true);
 
       try {
-        fetch("./auth/getURLs")
-          .then((res) => res.json())
-          .then((data) => {
-            if (!data.error) {
-              setUrls(data);
-              setLoading(false);
-            } else {
-              console.error(data.error);
-              setLoading(false);
-            }
-          });
+        const response = await fetch("./auth/getURLs");
+        const data = await response.json();
+        if (!data.error) {
+          setUrls(data);
+          setLoading(false);
+        } else {
+          console.error(data.error);
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching URLs:", error);
         setLoading(false);
@@ -109,23 +107,19 @@ function ShortenedComp({ urls, setUrls, search }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }), 
+        body: JSON.stringify({ id }),
       });
 
       if (!response.ok) {
         throw new Error("Failed to delete URL");
       }
 
-      const data = await response.json();
-
-      //update the UI by removing the deleted URL from the state
       setUrls((prevUrls) => prevUrls.filter((url) => url.id !== id));
     } catch (error) {
       console.error("Error deleting URL:", error);
     }
   };
 
-  /* Function to download QR code image */
   const downloadQrCode = async (url) => {
     try {
       const response = await fetch(url.qr_code, {
@@ -140,29 +134,28 @@ function ShortenedComp({ urls, setUrls, search }) {
       const blobUrl = window.URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = blobUrl;
-      anchor.download = `${url.tittle || "download"}.png`;
+      anchor.download = `${url.title || "download"}.png`;
       document.body.appendChild(anchor);
       anchor.click();
       document.body.removeChild(anchor);
-
-      // Release the blob URL after download
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Error downloading the QR code:", error);
     }
   };
 
-  const filteredUrls = urls.filter((url) => {
-    return search.toLowerCase() === ""
+  const filteredUrls = urls.filter((url) =>
+    search.toLowerCase() === ""
       ? url
       : url.title.toLowerCase().includes(search.toLowerCase()) ||
-          url.short_url.toLowerCase().includes(search.toLowerCase()) ||
-          url.original_url.toLowerCase().includes(search.toLowerCase());
-  });
+        url.short_url.toLowerCase().includes(search.toLowerCase()) ||
+        url.original_url.toLowerCase().includes(search.toLowerCase())
+  );
 
   if (filteredUrls.length === 0) {
     return <LinkNotFound />;
   }
+
   return (
     <div className="mb-3 flex flex-col gap-4 justify-between bg-Gray">
       {filteredUrls.map((url) => (
@@ -235,9 +228,17 @@ function ShortenedComp({ urls, setUrls, search }) {
               details
             </button>
           </div>
-          {showDetails === url.id && <UrlDetails urlId={url.id} />}
+          {showDetails === url.id && (
+            <UrlDetailsModal
+              isVisible={showDetails === url.id}
+              onClose={() => setShowDetails(null)}
+              urlId={url.id}
+            />
+          )}
         </article>
       ))}
     </div>
   );
 }
+
+export default ShortenedComp;

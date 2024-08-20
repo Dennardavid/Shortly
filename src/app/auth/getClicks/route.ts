@@ -16,22 +16,32 @@ export async function GET(request: NextRequest) {
 
   // Parse the Url_id from the query parameters
   const url = new URL(request.url);
-  const urlId = url.searchParams.get("Url_id");
+  const urlId = url.searchParams.get("urlId");
 
   if (!urlId) {
     return NextResponse.json({ error: "Url_id is required" }, { status: 400 });
   }
 
-  // Fetch the click details for the specific URL based on Url_id
-  const { data, error } = await supabase
-    .from("URL_Clicks")
-    .select("created_at, url_id, country, city, number_of_clicks")
-    .eq("url_id", urlId);
+  const { data: urlData, error: urlError } = await supabase
+    .from("URLS")
+    .select("*")
+    .eq("id", urlId)
+    .eq("user_id", user.id)
+    .single();
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (urlError) {
+    return NextResponse.json({ error: urlError.message }, { status: 500 });
   }
 
-  // Return the click details
-  return NextResponse.json(data, { status: 200 });
+  const { data: clickData, error: clickError } = await supabase
+    .from("URL_Clicks")
+    .select("*")
+    .eq("url_id", urlId)
+    .order("created_at", { ascending: false });
+
+  if (clickError) {
+    return NextResponse.json({ error: clickError.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ url: urlData, clicks: clickData }, { status: 200 });
 }
