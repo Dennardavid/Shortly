@@ -3,17 +3,21 @@
 import { TbHandClick } from "react-icons/tb";
 import { FaLink } from "react-icons/fa6";
 import { useState, useEffect } from "react";
+import { error } from "console";
 
 function LinkStats() {
   const [totalLinks, setTotalLinks] = useState<number>(0);
+  const [totalClicks, setTotalClicks] = useState<number>(0);
 
   const fetchUpdatedStats = async () => {
     try {
-      const response = await fetch('/auth/getURLs');
+      const response = await fetch("/auth/getURLs");
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+
       if (!data.error) {
         setTotalLinks(data.length);
       } else {
@@ -24,8 +28,27 @@ function LinkStats() {
     }
   };
 
+  const fetchClickStats = async () => {
+    try {
+      const clicks = await fetch("/auth/getClickNum");
+      if (!clicks.ok) {
+        throw new Error("Network response was not ok" );
+      }
+
+      const clickData = await clicks.json();
+      if (!clickData.error) {
+        setTotalClicks(clickData.length);
+      } else {
+        console.error(clickData.error);
+      }
+    } catch (error) {
+      console.error("Error fetching updated stats:", error);
+    }
+  };
+
   useEffect(() => {
     fetchUpdatedStats();
+    fetchClickStats();
   }, []);
 
   return (
@@ -47,7 +70,7 @@ function LinkStats() {
           <TbHandClick size={25} color="hsl(256, 26%, 33%)" />
           Total clicks
         </p>
-        <p>20</p>
+        <p>{totalClicks}</p>
       </div>
     </div>
   );

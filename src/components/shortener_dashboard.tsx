@@ -17,7 +17,7 @@ export function DashboardShortener() {
   const [search, setSearch] = useState<string>("");
 
   const handleAddUrl = (newUrl) => {
-    setUrls((prevUrls) => [newUrl, ...prevUrls ]);
+    setUrls((prevUrls) => [newUrl, ...prevUrls]);
   };
 
   const handleSearch = (e) => {
@@ -144,6 +144,29 @@ function ShortenedComp({ urls, setUrls, search }) {
     }
   };
 
+  async function handleLinkClick(urlId, shortUrl) {
+    try {
+      // Send a POST request to record the click details
+      const response = await fetch("/auth/storeClicks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: urlId }),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to record click");
+      }
+
+      // Open the shortened URL in a new tab
+      window.open(shortUrl, "_blank");
+    } catch (error) {
+      console.error("Error handling link click:", error);
+      window.open(shortUrl, "_blank"); // Still open the URL even if the API call fails
+    }
+  }
+
   const filteredUrls = urls.filter((url) =>
     search.toLowerCase() === ""
       ? url
@@ -183,6 +206,10 @@ function ShortenedComp({ urls, setUrls, search }) {
                 href={url.short_url}
                 target="_blank"
                 className="hover:underline md:text-lg lg:text-xl font-semibold text-LightViolet hover:cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent the default link behavior
+                  handleLinkClick(url.id, url.short_url); // Call the function with the URL ID and short URL
+                }}
               >
                 Shortened URL: {url.short_url}
               </Link>

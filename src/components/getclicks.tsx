@@ -44,7 +44,7 @@ function UrlDetailsModal({ isVisible, onClose, urlId }) {
       className="fixed inset-0 bg-black bg-opacity-25 z-40 backdrop-blur-sm flex flex-col justify-center items-center"
       id="wrapper"
     >
-      <div className="bg-white rounded-xl shadow-lg w-[80%] max-w-lg p-5 relative">
+      <div className="bg-white rounded-xl shadow-lg w-[90%] max-w-2xl p-5 relative">
         <button
           className="bg-transparent absolute -top-10 -right-1 hover:bg-transparent hover:text-LightViolet"
           type="button"
@@ -62,18 +62,19 @@ function UrlDetailsModal({ isVisible, onClose, urlId }) {
 
         {!loading && !error && urlDetails && (
           <>
-            <div className="mb-4">
-              <h3 className="text-lg font-bold">Title: {urlDetails.title}</h3>
-              <p>Original URL: {urlDetails.original_url}</p>
-              <p>Short URL: {urlDetails.short_url}</p>
+            <div className="mb-4 w-[80%]">
+              <h3 className="text-lg font-bold mb-2">Title: {urlDetails.title}</h3>
               <Image
                 src={urlDetails.qr_code}
                 alt="QR Code"
                 width={100}
                 height={100}
-                className="rounded-sm ring-2 ring-cyan"
+                className="rounded-sm ring-2 ring-cyan mb-2"
                 style={{ width: "auto", height: "auto" }}
               /> 
+              <p className="mb-2">Original URL: {urlDetails.original_url}</p>
+              <p className="mb-2">Short URL: {urlDetails.short_url}</p>
+              
               <p>Created At: {new Date(urlDetails.created_at).toLocaleDateString()}</p>
             </div>
 
